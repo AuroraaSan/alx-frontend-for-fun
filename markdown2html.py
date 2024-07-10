@@ -3,7 +3,7 @@
 This is a script to convert a Markdown file to HTML.
 
 Usage:
-    ./markdown2html.py [input_file] [output_file]
+    ./markdown2html.py README.md README.html
 
 Arguments:
     input_file: the name of the Markdown file to be converted
@@ -13,7 +13,6 @@ Example:
     ./markdown2html.py README.md README.html
 """
 
-import argparse
 import pathlib
 import re
 import sys
@@ -45,22 +44,19 @@ def convert_md_to_html(input_file, output_file):
         f.writelines(html_content)
 
 if __name__ == '__main__':
-    # Parse command-line arguments
-    parser = argparse.ArgumentParser(description='Convert markdown to HTML')
-    parser.add_argument('input_file', help='path to input markdown file')
-    parser.add_argument('output_file', help='path to output HTML file')
-    args = parser.parse_args()
-
-    # Check if the number of arguments is less than 2
+    # Check if the number of arguments is less than 3
     if len(sys.argv) < 3:
         print('Usage: ./markdown2html.py README.md README.html', file=sys.stderr)
         sys.exit(1)
 
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+
     # Check if the input file exists
-    input_path = pathlib.Path(args.input_file)
+    input_path = pathlib.Path(input_file)
     if not input_path.is_file():
-        print(f'Missing {input_path}', file=sys.stderr)
+        print(f'Missing {input_file}', file=sys.stderr)
         sys.exit(1)
 
     # Convert the markdown file to HTML
-    convert_md_to_html(args.input_file, args.output_file)
+    convert_md_to_html(input_file, output_file)
