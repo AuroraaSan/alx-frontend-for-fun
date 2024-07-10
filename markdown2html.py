@@ -19,9 +19,9 @@ import re
 import sys
 
 def convert_md_to_html(input_file, output_file):
-    '''
+    """
     Converts markdown file to HTML file
-    '''
+    """
     # Read the contents of the input file
     with open(input_file, encoding='utf-8') as f:
         md_content = f.readlines()
@@ -44,13 +44,17 @@ def convert_md_to_html(input_file, output_file):
     with open(output_file, 'w', encoding='utf-8') as f:
         f.writelines(html_content)
 
-
 if __name__ == '__main__':
     # Parse command-line arguments
     parser = argparse.ArgumentParser(description='Convert markdown to HTML')
     parser.add_argument('input_file', help='path to input markdown file')
     parser.add_argument('output_file', help='path to output HTML file')
     args = parser.parse_args()
+
+    # Check if the number of arguments is less than 2
+    if len(sys.argv) < 3:
+        print('Usage: ./markdown2html.py README.md README.html', file=sys.stderr)
+        sys.exit(1)
 
     # Check if the input file exists
     input_path = pathlib.Path(args.input_file)
